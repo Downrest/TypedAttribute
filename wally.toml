@@ -1,6 +1,6 @@
 [package]
 name = "downrest/typedattribute"
-version = "1.0.0"
+version = "1.0.1"
 registry = "https://github.com/UpliftGames/wally-index"
 repository = "https://github.com/Downrest/TypedAttribute"
 realm = "shared"
@@ -9,5 +9,5 @@ exclude = [
     "README.md"
 ]
     
-
 [dependencies]
+Signal = "nowoshire/namedsignal@2.3.2"
