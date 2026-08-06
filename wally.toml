@@ -4,6 +4,10 @@ version = "1.0.0"
 registry = "https://github.com/UpliftGames/wally-index"
 repository = "https://github.com/Downrest/TypedAttribute"
 realm = "shared"
-exclude = "rokit.toml, README.md"
+exclude = [
+    "rokit.toml",
+    "README.md"
+]
+    
 
 [dependencies]
