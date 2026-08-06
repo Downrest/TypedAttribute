@@ -5,10 +5,13 @@ Used for cases where attributes are shared between client/server to replicate ga
 
 Constructing a typed attribute is done thru:
 * `new<type>(attributeName: string, defaultValue: type): TypedAttribute<type>`
+
 The getter is:
 * `Get(): type`
+
 The setter (internally typechecked at runtime) is:
 * `Set(setValue: type)`
+
 There is also a signal for attribute value changes:
 * `Changed:Connect(function(previousValue: type, newValue: type))`
 
