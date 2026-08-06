@@ -36,3 +36,5 @@ Download either 1) thru the [latest github release](https://github.com/Downrest/
 ```lua
 TypedAttribute = "downrest/typedattribute@1.0.0"
 ```
+
+Dependencies include: [NamedSignal](https://github.com/averlyst/NamedSignal/tree/main).
