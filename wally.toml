@@ -3,6 +3,7 @@ name = "downrest/typedattribute"
 version = "1.0.3"
 registry = "https://github.com/UpliftGames/wally-index"
 repository = "https://github.com/Downrest/TypedAttribute"
+description = "A typed attribute wrapper with an object-oriented API."
 realm = "shared"
 exclude = [
     "rokit.toml",
