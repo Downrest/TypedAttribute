@@ -1,0 +1,9 @@
+[package]
+name = "downr/typedattribute"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+repository = "https://github.com/Downrest/TypedAttribute"
+realm = "shared"
+exclude = "rokit.toml, README.md"
+
+[dependencies]
