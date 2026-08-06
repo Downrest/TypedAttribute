@@ -34,7 +34,7 @@ end)
 ---
 Download either 1) thru the [latest github release](https://github.com/Downrest/TypedAttribute/releases) or 2) thru [wally](https://wally.run/package/downrest/typedattribute):
 ```lua
-TypedAttribute = "downrest/typedattribute@1.0.4"
+TypedAttribute = "downrest/typedattribute@1.0.8"
 ```
 
 Dependencies include: [NamedSignal](https://github.com/averlyst/NamedSignal/tree/main).

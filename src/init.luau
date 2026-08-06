@@ -1,6 +1,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Signal = require(script.Parent.Parent.Signal)
+local Signal = require(script.Parent.Signal)
 
 local TypedAttribute = {}
 

@@ -1,14 +1,10 @@
 [package]
 name = "downrest/typedattribute"
-version = "1.0.4"
+version = "1.0.8"
 description = "A typed attribute wrapper with an object-oriented API."
 registry = "https://github.com/UpliftGames/wally-index"
 repository = "https://github.com/Downrest/TypedAttribute"
 realm = "shared"
-exclude = [
-    "rokit.toml",
-    "README.md"
-]
     
 [dependencies]
 Signal = "nowoshire/namedsignal@2.3.2"
