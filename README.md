@@ -1,7 +1,7 @@
 # TypedAttribute
 A typed attribute wrapper with an object-oriented API.
 
-Used for cases where attributes are shared between client/server to replicate gamestate. TypedAttribute merely exposes the same API for both sides.
+Used for cases where attributes are shared between client/server to replicate gamestate. TypedAttribute exposes equivalent API for both sides.
 
 Constructing a typed attribute is done thru:
 * `new<type>(attributeName: string, defaultValue: type)`
