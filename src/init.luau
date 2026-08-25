@@ -5,7 +5,8 @@ local Signal = require(script.Parent.Signal)
 local TypedAttribute = {}
 
 export type TypedAttribute<type> = {
-    Changed: Signal.Signal<(previousValue: type, newValue: type) -> ()>;
+    Loaded: Signal.Signal<(initialValue: type) -> ()>;
+    Changed: Signal.Signal<(newValue: type, previousValue: type) -> ()>;
 
     Get: (self: TypedAttribute<type>) -> type;
     Set: (self: TypedAttribute<type>, setValue: type) -> ();
@@ -21,17 +22,8 @@ function TypedAttribute.new<type>(attributeName: string, defaultValue: type): Ty
     self._type = typeof(defaultValue)
     self._previousValue = defaultValue
 
-    self.Changed = Signal.new<<(previousValue: type, newValue: type) -> ()>>(); do
-        script:GetAttributeChangedSignal(attributeName):Connect(function()
-            local previousValue = self._previousValue
-            local newValue = self:Get()
-
-            self.Changed:Fire(previousValue, newValue)
-            self._previousValue = newValue
-        end)
-    end
-
-    script:SetAttribute(attributeName, defaultValue)
+    self.Changed = Signal.new<<(previousValue: type, newValue: type) -> ()>>()
+    self.Loaded = Signal.new<<(initialValue: type) -> ()>>
 
     function self.Get(self: TypedAttribute<type>): type
         self = (self:: TypedAttribute<type> & PrivateTypedAttribute<type>)
@@ -49,6 +41,24 @@ function TypedAttribute.new<type>(attributeName: string, defaultValue: type): Ty
         )
 
         script:SetAttribute(attributeName, setValue)
+    end
+
+    -- init
+    do
+        script:GetAttributeChangedSignal(attributeName):Connect(function()
+            local previousValue = self._previousValue
+            local newValue = self:Get()
+
+            -- found out that GetAttributeChangedSignal() triggers when an attribute initially loads in
+            if previousValue == newValue then
+                self.Loaded:Fire(newValue)
+            else
+                self.Changed:Fire(newValue, previousValue)
+                self._previousValue = newValue
+            end
+        end)
+
+        script:SetAttribute(attributeName, defaultValue)
     end
 
     return self
