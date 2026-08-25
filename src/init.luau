@@ -23,7 +23,7 @@ function TypedAttribute.new<type>(attributeName: string, defaultValue: type): Ty
     self._previousValue = defaultValue
 
     self.Changed = Signal.new<<(previousValue: type, newValue: type) -> ()>>()
-    self.Loaded = Signal.new<<(initialValue: type) -> ()>>
+    self.Loaded = Signal.new<<(initialValue: type) -> ()>>()
 
     function self.Get(self: TypedAttribute<type>): type
         self = (self:: TypedAttribute<type> & PrivateTypedAttribute<type>)
