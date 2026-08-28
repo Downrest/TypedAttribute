@@ -1,5 +1,3 @@
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
 local Signal = require(script.Parent.Signal)
 
 local TypedAttribute = {}
@@ -12,13 +10,15 @@ export type TypedAttribute<type> = {
     Set: (self: TypedAttribute<type>, setValue: type) -> ();
 }
 type PrivateTypedAttribute<type> = {
+    _parent: Instance;
     _type: string;
     _previousValue: type;
 }
 
-function TypedAttribute.new<type>(attributeName: string, defaultValue: type): TypedAttribute<type>
+function TypedAttribute.new<type>(attributeName: string, defaultValue: type, parent: Instance?): TypedAttribute<type>
     local self = {}:: TypedAttribute<type> & PrivateTypedAttribute<type>
 
+    self._parent = parent or script
     self._type = typeof(defaultValue)
     self._previousValue = defaultValue
 
@@ -28,7 +28,7 @@ function TypedAttribute.new<type>(attributeName: string, defaultValue: type): Ty
     function self.Get(self: TypedAttribute<type>): type
         self = (self:: TypedAttribute<type> & PrivateTypedAttribute<type>)
 
-        return script:GetAttribute(attributeName)
+        return self._parent:GetAttribute(attributeName)
     end
 
     function self.Set(self: TypedAttribute<type>, setValue: type)
@@ -40,12 +40,12 @@ function TypedAttribute.new<type>(attributeName: string, defaultValue: type): Ty
             `Attempted to set attribute to {setType} when the attribute is {self._type}`
         )
 
-        script:SetAttribute(attributeName, setValue)
+        self._parent:SetAttribute(attributeName, setValue)
     end
 
     -- init
     do
-        script:GetAttributeChangedSignal(attributeName):Connect(function()
+        self._parent:GetAttributeChangedSignal(attributeName):Connect(function()
             local previousValue = self._previousValue
             local newValue = self:Get()
 
@@ -58,7 +58,7 @@ function TypedAttribute.new<type>(attributeName: string, defaultValue: type): Ty
             end
         end)
 
-        script:SetAttribute(attributeName, defaultValue)
+        self._parent:SetAttribute(attributeName, defaultValue)
     end
 
     return self
